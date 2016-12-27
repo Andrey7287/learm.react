@@ -5,117 +5,60 @@ window.$ = $;
 window.jQuery = $;
 
 import '../sass/css.scss';
-import Menu from './modules/menu';
-
-var menu = new Menu,
-		isMap = $('#map').is('#map'),
-		isSlider = $('.slider').is('.slider'),
-		scrollTiming = 0;
-/***********************
-********* MENU *********
-************************/
-
-
-(function adaptiveMenu () {
-
-	var mobileView = window.matchMedia("(max-width: 768px)").matches,
-			timing = 0;
-
-	if ( mobileView ) {
-		menu.initBurger();
-		menu.initMobile();
-	} else {
-		menu.destructMobile();
-	}
-
-	$(window).resize(()=>{
-
-		if ( !timing ) {
-			timing = setTimeout(adaptiveMenu, 200);
-		}
-
-	});
-
-})();
-
-/**********************
-********* MAP *********
-***********************/
-
-if ( isMap ) {
-
-	require.ensure([], (require) => {
-		require('./modules/map');
-	});
-
-}
-
-/***********************
-******** SLIDER ********
-************************/
-
-
-if ( isSlider ) {
-
-	require.ensure([], (require) => {
-		require('script!../node_modules/slick-carousel/slick/slick.js');
-		$('.slider').slick({
-			prevArrow: $('.left'),
-			nextArrow: $('.right'),
-			dots: true,
-			appendDots: $('.slider-dots')
-		});
-	});
-
-}
-
-/************************
-******* Scroll Up *******
-*************************/
-
-$(document).scroll(function(){
-
-	if ( !scrollTiming ) {
-
-		scrollTiming = setTimeout(function(){
-
-			var scroll = $('body').scrollTop() ? $('body').scrollTop() : $('html').scrollTop();
-			scroll >= 300 ? $('.scrollup').addClass('act') : $('.scrollup').removeClass('act');
-			scrollTiming = 0;
-
-		},300);
-
-	}
-
-});
-
-import scrollup from './modules/scrollup';
-$('.scrollup').scrollUp();
-
-/***********************
-******** REACT ********
-***********************
-
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, browserHistory } from 'react-router';
-import { Provider } from 'react-redux';
-import { syncHistoryWithStore } from 'react-router-redux';
-import configureStore from './react/store'
-import routes from './react/routes'
 
-const app = document.getElementById('app');
-const store = configureStore();
-const history = syncHistoryWithStore(browserHistory, store);
+var my_news = [
+	{
+		author: 'Саша Печкин',
+		text: 'В четверг, четвертого числа...'
+	},
+	{
+		author: 'Просто Вася',
+		text: 'Считаю, что $ должен стоить 35 рублей!'
+	},
+	{
+		author: 'Гость',
+		text: 'Бесплатно. Скачать. Лучший сайт - http://localhost:3000'
+	}
+];
 
-if (app) {
-	ReactDOM.render((
-		<Provider store={store}>
-			<Router history={ history }>
-				{ routes }
-			</Router>
-		</Provider>
-	),app);
+class Comments extends React.Component {
+	render() {
+		return(
+			<div>Текст комментария</div>
+		);
+	}
+}
+class News extends React.Component {
+	render() {
+		return(
+			<ul className="news">
+				{this.props.data.map((i, index)=> {
+					return(
+						<li key={index}>
+							<p className="news__author">{i.author}</p>
+							<p className="news__text">{i.text}</p>
+						</li>
+					);
+				})}
+			</ul>
+		);
+	}
+}
+class App extends React.Component {
+	render(){
+		return (
+			<div className="app">
+				Всем привет, я компонент App! Я умею отображать новости.
+				<News data={my_news} />
+				<Comments />
+			</div>
+		);
+	}
+}
 
-}*/
-
+ReactDOM.render(
+	<App />,
+	document.getElementById('app')
+);
