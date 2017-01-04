@@ -1,18 +1,16 @@
 {
-	"name": "webpack-project",
+	"name": "learm.react",
 	"version": "1.0.0",
 	"description": "description here",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo NODE_ENV \\\"Error: no test specified\\\" ",
-		"install": "npm i",
-		"setDev": "npm config set -g production false",
 		"dev": "cross-env NODE_ENV=development webpack-dev-server",
 		"prod": "cross-env NODE_ENV=production webpack"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/Andrey7287/learn.react.git"
+		"url": "git+https://github.com/Andrey7287/learm.react.git"
 	},
 	"keywords": [
 		"-"
@@ -20,9 +18,9 @@
 	"author": "Alekseev.A",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/Andrey7287/learn.react/issues"
+		"url": "https://github.com/Andrey7287/learm.react/issues"
 	},
-	"homepage": "https://github.com/Andrey7287/learn.react#readme",
+	"homepage": "https://github.com/Andrey7287/learm.react#readme",
 	"dependencies": {
 		"jquery": "^3.1.1",
 		"jquery-fancybox": "^3.1.0",
